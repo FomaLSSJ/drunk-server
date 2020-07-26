@@ -6,12 +6,13 @@ class AuthFormatter {
     });
   }
 
-  static register(item) {
+  static register(item, token) {
     return Object.freeze({
       username: item.username,
       email: item.email,
       createdAt: item.createdAt,
-      updatedAt: item.updatedAt
+      updatedAt: item.updatedAt,
+      data: AuthFormatter.login(token)
     });
   }
 }

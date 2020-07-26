@@ -1,4 +1,4 @@
-const JWT = require('../utils/jwt');
+const { decode } = require('../system/security');
 const ErrorUnauthorized = require('../errors/unauthorized');
 
 class AuthMiddleware {
@@ -6,7 +6,7 @@ class AuthMiddleware {
     const [ , token ] = ctx.get('authorization').split(' ');
 
     try {
-      const user = JWT.decode(token);
+      const user = decode(token);
       ctx.user = user;
     } catch (err) {
       throw new ErrorUnauthorized();

@@ -1,5 +1,5 @@
 const { hash } = require('../system/security');
-const JWT = require('../utils/jwt');
+const { sign } = require('../system/security');
 const UserRepositories = require('../repositories/user');
 const AuthFormatter = require('../formatters/auth');
 const ErrorNotFound = require('../errors/not-found');
@@ -8,7 +8,7 @@ class AuthController {
   static async login(ctx) {
     const { email, password } = ctx.request.body;
 
-    const user = await UserModel.findOne({
+    const user = await UserRepositories.findOne({
       email,
       passhash: hash(password)
     });
@@ -18,7 +18,7 @@ class AuthController {
     }
 
     ctx.status = 200;
-    ctx.body = AuthFormatter.login(JWT.sign(user.toJSON()));
+    ctx.body = AuthFormatter.login(sign(user.toJSON()));
   }
 
   static async register(ctx) {
@@ -30,7 +30,7 @@ class AuthController {
     });
 
     ctx.status = 200;
-    ctx.body = AuthFormatter.register(user);
+    ctx.body = AuthFormatter.register(user, sign(user.toJSON()));
   }
 }
 

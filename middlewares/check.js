@@ -4,7 +4,7 @@ const validator = async (next, data, keys, type) => {
   const requires = [];
 
   keys.forEach((key) => {
-    if (!data.hasOwnProperty(key)) {
+    if (!Object.hasOwnProperty.call(data, key)) {
       requires.push(key);
     }
   });

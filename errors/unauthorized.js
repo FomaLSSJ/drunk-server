@@ -5,6 +5,6 @@ class ErrorUnauthorized extends BaseError {
   constructor() {
     super(ERROR_MESSAGES.UNAUTHORIZED, ERROR_STATUSES.UNAUTHORIZED);
   }
-};
+}
 
 module.exports = ErrorUnauthorized;
